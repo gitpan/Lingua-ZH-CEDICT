@@ -4,22 +4,27 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
-use lib '../lib';
+# $Id: import_storable.pl,v 1.4 2002/08/13 21:38:13 crenz Exp $
+
+use lib './lib';
 
 use strict;
 use warnings;
 use Lingua::ZH::CEDICT;
 
 my $dict = Lingua::ZH::CEDICT->new(source        => 'Textfile',
-                                   filename      => 'cedict.utf8',
+                                   filename      => './data/cedict.b5.utf8',
                                    targetCharset => '');
 
-print STDERR "Reading CEDICT...\n";
+print "Reading CEDICT...\n";
 $dict->init();
 
-print STDERR "Storing dictionary data...\n";
+print "Converting to simplified characters...\n";
+$dict->addSimpChar();
+
+print "Storing dictionary data...\n";
 my $store = Lingua::ZH::CEDICT->new(source   => 'Storable',
-                                    filename => '../lib/Lingua/ZH/CEDICT/CEDICT.store');
+                                    filename => './lib/Lingua/ZH/CEDICT/CEDICT.store');
 
 $store->importData($dict);
 

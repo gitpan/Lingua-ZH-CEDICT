@@ -4,13 +4,12 @@ package Lingua::ZH::CEDICT::Storable;
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
-use bytes;
 use strict;
 use warnings;
 use vars qw($VERSION @ISA);
 use Storable;
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 @ISA = qw(Lingua::ZH::CEDICT);
 
 sub new {
@@ -60,7 +59,7 @@ Lingua::ZH::CEDICT::Storable - Interface for stored dictionary data
 
   # these are the default values; you may omit them
   $dict = Lingua::ZH::CEDICT->new(source   => "Storable",
-                                  filename => "CEDICT.store");
+                                  filename => "$libdir/CEDICT.store");
 
   # load data from cedict.store
   $dict->init();
@@ -78,7 +77,7 @@ which allows for faster startup times.
 
 There are a number of methods you might find useful to work with the
 data once it is in memory. They are included and described in
-L<Lingua::ZH::Cedict|Lingua::ZH::Cedict>, just in case you want to
+L<Lingua::ZH::CEDICT|Lingua::ZH::CEDICT>, just in case you want to
 use them with one of the other interface modules as well.
 
 =head1 PREREQUISITES

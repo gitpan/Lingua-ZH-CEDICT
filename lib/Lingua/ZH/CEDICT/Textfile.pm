@@ -4,12 +4,14 @@ package Lingua::ZH::CEDICT::Textfile;
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
+# $Id: Textfile.pm,v 1.3 2002/08/13 20:57:45 crenz Exp $
+
 use bytes;
 use strict;
 use warnings;
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 @ISA = qw(Lingua::ZH::CEDICT);
 
 sub new {
@@ -43,16 +45,16 @@ sub init {
         next unless /\w/;
         $_ = $iconv->convert($_) if defined $iconv;
 
-#        m|^(\S+)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
-        m|^(\S+\|\S*)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
+        m|^(\S+)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
+#        m|^(\S+\|\S*)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
             die "Line $.: Invalid entry '$_'\n";
-        my @zi = split /\|/, $1;
-        $zi[1] ||= '';
-        $zi[1] = '' if (index($zi[1], '?') >= 0);
+#        my @zi = split /\|/, $1;
+#        $zi[1] ||= '';
+#        $zi[1] = '' if (index($zi[1], '?') >= 0);
         my $tonelessPinyin = $self->removePinyinTones($2);
 #        print "@zi // $2 // $3\n";
-#        push @{$self->{entry}}, [ $1, '', $2, $tonelessPinyin, $3 ];
-        push @{$self->{entry}}, [ $zi[0], $zi[1], $2, $tonelessPinyin, $3 ];
+        push @{$self->{entry}}, [ $1, '', $2, $tonelessPinyin, $3 ];
+#        push @{$self->{entry}}, [ $zi[0], $zi[1], $2, $tonelessPinyin, $3 ];
     }
     close $fh;
 
@@ -71,7 +73,7 @@ Lingua::ZH::CEDICT::Textfile - Interface for cedict.b5
 
   use Lingua::ZH::CEDICT;
 
-  # these are the default values; you may omit them (except src)
+  # these are the default values; you may omit them (except source)
   $dict = Lingua::ZH::CEDICT->new(source        => "Textfile",
                                   filename      => "cedict.b5",
                                   sourceCharset => "Big5",
@@ -90,7 +92,7 @@ C<targetCharset> have a true value and differ.
 
 There are a number of methods you might find useful to work with the
 data once it is in memory. They are included and described in
-L<Lingua::ZH::Cedict|Lingua::ZH::Cedict>, just in case you want to
+L<Lingua::ZH::CEDICT|Lingua::ZH::CEDICT>, just in case you want to
 use them with one of the other interface modules as well.
 
 =head1 PREREQUISITES

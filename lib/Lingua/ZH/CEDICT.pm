@@ -4,12 +4,15 @@ package Lingua::ZH::CEDICT;
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
+# $Id: CEDICT.pm,v 1.5 2002/08/13 19:06:07 crenz Exp $
+
+use 5.006;
 use bytes;
 use strict;
 use warnings;
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 @ISA = ();
 
 sub new {
@@ -100,7 +103,7 @@ sub applyEnglishFormat {
 sub addSimpChar {
     my ($self) = @_;
 
-    $self->{HanConvert} ||= "Lingua::ZH::HanConvert";
+    $self->{HanConvert} ||= "Lingua::ZH::CEDICT::HanConvert";
     (my $filename = $self->{HanConvert} . ".pm") =~ s|::|/|g;
     my $lib = $self->{HanConvert};
 
@@ -114,6 +117,7 @@ sub addSimpChar {
     }
 }
 
+# just for completeness' sake, should not really be necessary
 sub addTradChar {
     my ($self) = @_;
 
@@ -187,38 +191,26 @@ sub match {
 
 # Formatting ****************************************************************
 
+my %xlat =
+    (a1    => "ā", e1    => "ē", i1    => "ī",
+     o1    => "ō", u1    => "ū", 'v1'  => "ǖ",
+     a2    => "á", e2    => "é", i2    => "í",
+     o2    => "ó", u2    => "ú", 'v2'  => "ǘ",
+     a3    => "ǎ", e3    => "ě", i3    => "ǐ",
+     o3    => "ǒ", u3    => "ǔ", 'v3'  => "ǚ",
+     a4    => "à", e4    => "è", i4    => "ì",
+     o4    => "ò", u4    => "ù", 'v4'  => "ǜ",
+     a5    => 'a',  e5    => 'e',  i5    => 'i',
+     o5    => 'o',  u5    => 'u',  'v5'  => 'ü');
+
 sub utf8Pinyin {
     my ($self, $p) = @_;
     $p = $self unless ref($self);
 
-    # some people like to use v for u:
-    $p =~ s/v/u:/g;
+    # normalize u: and v to v
+    $p =~ s/u:/v/g;
 
-    my %xlat =
-    (a1    => "ā", e1    => "ē", i1    => "ī",
-     o1    => "ō", u1    => "ū", 'u:1' => "ǖ",
-     a2    => "á", e2    => "é", i2    => "í",
-     o2    => "ó", u2    => "ú", 'u:2' => "ǘ",
-     a3    => "ǎ", e3    => "ě", i3    => "ǐ",
-     o3    => "ǒ", u3    => "ǔ", 'u:3' => "ǚ",
-     a4    => "à", e4    => "è", i4    => "ì",
-     o4    => "ò", u4    => "ù", 'u:4' => "ǜ",
-     'u:5' => "ü");
-
-    foreach (keys %xlat) {
-        $p =~ s/$_/$xlat{$_}/g;
-    }
-
-    foreach (keys %xlat) {
-        $_ =~ /^(.+)([1-5])$/ or
-            die "Invalid translation!";
-        my $vowel = $1;
-        my $tone = $2;
-        $p =~ s/(\S*)$vowel(\S*)$tone/$1$xlat{$_}$2/g;
-    }
-
-    $p =~ s/5//g;
-
+    $p =~ s/([iuv]?)([aeiouv])([a-z]*)([1-5])/$1$xlat{"$2$4"}$3/g;
     return $p;
 }
 
@@ -324,7 +316,7 @@ keys:
 
 =item C<HanConvert>
 
-(Default: Lingua::ZH::HanConvert) The module used for the conversion of simple to traditional characters and vice versa. Best (but still not optimum) results are achieved with Encode::HanConvert, which needs perl 5.7.3 or later.
+(Default: Lingua::ZH::CEDICT::HanConvert) The module used for the conversion of simple to traditional characters and vice versa.
 
 =back
 
@@ -365,9 +357,7 @@ Returns a reference to the next matching entry.
 
 =item C<addSimpChar>
 
-=item C<addTradChar>
-
-Call the C<simple>/C<trad> method of the C<HanConvert> module specified to add a conversion to simple/traditional characters to each entry.
+Call the C<simple> method of the C<HanConvert> module specified to add a conversion to simplified characters to each entry.
 
 =item C<applyPinyinFormat($coderef)>
 
@@ -425,6 +415,7 @@ redistribute it and/or modify it under the same terms as Perl itself.
 L<Lingua::ZH::CEDICT::Textfile|Lingua::ZH::CEDICT::Textfile>
 L<Lingua::ZH::CEDICT::Storable|Lingua::ZH::CEDICT::Storable>
 L<Lingua::ZH::CEDICT::MySQL|Lingua::ZH::CEDICT::MySQL>
+L<Lingua::ZH::CEDICT::HanConvert|Lingua::ZH::CEDICT::HanConvert>
 L<http://www.mandarintools.com/cedict.html>.
 L<http://www.web42.com/zidian/>.
 
