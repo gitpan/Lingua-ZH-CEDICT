@@ -1,16 +1,12 @@
-Lingua/ZH/CEDICT version 0.01
+Lingua/ZH/CEDICT version 0.03
 =============================
 
 Lingua::ZH::CEDICT is an interface for CEDICT.b5, a Chinese-English
 dictionary file that may be freely used for non-commercial purposes.
 
-This is an alpha release; API and features are not finalized. If you
-intend to use this package, please contact me so I can acommodate your
-needs.
-
-The dictionary is included as a Storable v2.4 file. Please see the
-bin/ directory in the distribution to see how to import a new version
-of the dictionary.
+The dictionary is included as an UTF-8 text file (converted from
+CEDICT.b5 by piconv). Upon installation, the file will be read and
+converted into a Storable v2.4 file.
 
 INSTALLATION
 

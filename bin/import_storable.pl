@@ -13,8 +13,8 @@ use warnings;
 use Lingua::ZH::CEDICT;
 
 my $dict = Lingua::ZH::CEDICT->new(source        => 'Textfile',
-                                   filename      => './data/cedict.b5.utf8',
-                                   targetCharset => '');
+                                   filename      => './data/cedict.b5.utf-8',
+				   targetCharset => "");
 
 print "Reading CEDICT...\n";
 $dict->init();

@@ -137,6 +137,36 @@ sub match {
     return $self->{iterator}->each;
 }
 
+sub startFind {
+    my ($self, $key) = @_;
+
+    $self->{mysql}->query(<<EOQ);
+SELECT   zh_trad, zh_simp, pinyin, english
+FROM     $self->{prefix}_entries
+WHERE    (zh_trad = '$key' or
+          zh_simp = '$key' or
+          pinyin = '$key' or
+          toneless_pinyin = '$key' or
+          english = '$key')
+EOQ
+    die $self->{mysql}->get_error_message . "\n"
+        if ($self->{mysql}->is_error);
+
+    if ($self->{mysql}->has_selected_record) {
+        $self->{iterator} = $self->{mysql}->create_record_iterator;
+    } else {
+        $self->{iterator} = undef;
+    }
+
+    return $self->{iterator};
+}
+
+sub find {
+    my ($self) = @_;
+
+    return $self->{iterator}->each;
+}
+
 1;
 __END__
 

@@ -12,7 +12,7 @@ use strict;
 use warnings;
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 @ISA = ();
 
 sub new {
@@ -189,6 +189,33 @@ sub match {
     return undef;
 }
 
+sub startFind {
+    my ($self, $term) = @_;
+
+    $self->{_findPos} = 0;
+    $self->{_findTerm} = $term;
+}
+
+# returns a reference to the first/following entry that matches
+sub find {
+    my ($self) = @_;
+    my $term = $self->{_findTerm};
+
+    while ($self->{_findPos} < $self->numEntries) {
+        $self->{_findPos}++;
+        my $e = $self->{entry}->[$self->{_findPos} - 1];
+        return $e
+            if (($e->[0] eq $term) or
+                ($e->[1] eq $term) or
+                ($e->[2] =~ /^$term$/i) or
+                ($e->[3] =~ /^$term$/i) or
+                ($e->[4] =~ /^$term$/i));
+    }
+
+    # nothing found
+    return undef;
+}
+
 # Formatting ****************************************************************
 
 my %xlat =
@@ -345,11 +372,19 @@ Returns the $number entry in the dictionary (0-based, of course).
 
 =item C<startMatch($key)>
 
-Starts a search using the searchkey $key.
+Starts an inexact search using the searchkey $key.
 
 =item C<match()>
 
 Returns a reference to the next matching entry.
+
+=item C<startFind($key)>
+
+Starts an exact search using the searchkey $key.
+
+=item C<find()>
+
+Returns a reference to the next exactly matching entry.
 
 =head2 MANIPULATING DATA AND FORMATTING
 

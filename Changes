@@ -1,5 +1,9 @@
 Revision history for Perl extension Lingua::ZH::CEDICT.
 
+0.03  Sun Oct 05 23:30:00 2003
+    - added startFind() and Find()
+    - included CEDICT license
+
 0.02  Tue Aug 13 20:30:00 2002
     - added own HanConvert module
     - fixed a number of bugs (especially utf8Pinyin() and POD)
