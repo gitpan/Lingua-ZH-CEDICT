@@ -1,0 +1,12 @@
+lib/Lingua/ZH/CEDICT.pm
+lib/Lingua/ZH/CEDICT/CEDICT.store
+lib/Lingua/ZH/CEDICT/Textfile.pm
+lib/Lingua/ZH/CEDICT/Storable.pm
+lib/Lingua/ZH/CEDICT/MySQL.pm
+bin/import_storable.pl
+t/0-load.t
+t/1-match.t
+Changes
+Makefile.PL
+MANIFEST
+README
