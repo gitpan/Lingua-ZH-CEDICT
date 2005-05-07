@@ -1,5 +1,5 @@
 CEDICT.DOC - README file for CEDICT - Chinese-English Dictionary
-23 January 2003
+Date: 8 January 2005
 
 Preface 
 ~~~~~~~ 
@@ -230,7 +230,21 @@ Version:
   GB   Words: 23512, Defs: 24345
   Big5 Words: 25807, Defs: 26404
   Various corrections and new words from the news.
+23 October 2004
+  GB   Words: 23722, Defs: 24556
+  Big5 Words: 26017, Defs: 26617
+  Country and city names contributed by Jack Halpern.
+8 January 2005
+  GB   Words: 23825, Defs: 24665
+  Big5 Words: 26120, Defs: 26726
+  New words and corrections from Steven Daniels, EuroAsiaSoftware, David Rhys Jones, Matthew Fischer, and Xianwen Cao
+11 April 2005
+  UTF8 Defs: 27085
+  GB   Words: 24210, Defs: 25027
+  Big5 Words: 26452, Defs: 27085
+  New words and corrections from Michael Burkhardt, Micah, Steven Daniels, Vincent Ramos, Matthew Fischer, Simon Rapp, John Jenkins, Erik Peterson, David Lancashire, Luiz Borges, Brian Schack.
 
+=
 ==========================================================================
 
 CEDICT LICENCE STATEMENT

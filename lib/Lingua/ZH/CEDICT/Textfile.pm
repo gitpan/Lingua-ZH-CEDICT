@@ -1,6 +1,6 @@
 package Lingua::ZH::CEDICT::Textfile;
 
-# Copyright (c) 2002 Christian Renz <crenz@web42.com>
+# Copyright (c) 2002-2005 Christian Renz <crenz@web42.com>
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
@@ -11,15 +11,15 @@ use strict;
 use warnings;
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 @ISA = qw(Lingua::ZH::CEDICT);
 
 sub new {
     my $class = shift;
     my $self = +{@_};
 
-    $self->{filename}      ||= "cedict.b5";
-    $self->{sourceCharSet} ||= "Big5";
+    $self->{filename}      ||= "cedict_ts.u8";
+    $self->{sourceCharSet} ||= "UTF-8";
     $self->{targetCharSet} ||= "UTF-8";
 
     bless $self, $class;
@@ -45,15 +45,15 @@ sub init {
         next unless /\w/;
         $_ = $iconv->convert($_) if defined $iconv;
 
-        m|^(\S+)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
+        m|^(\S+)\s(\S+)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
 #        m|^(\S+\|\S*)\s\[([a-z0-9: ]+)\]\s/(.*)/\s*$| or
             die "Line $.: Invalid entry '$_'\n";
 #        my @zi = split /\|/, $1;
 #        $zi[1] ||= '';
 #        $zi[1] = '' if (index($zi[1], '?') >= 0);
-        my $tonelessPinyin = $self->removePinyinTones($2);
+        my $tonelessPinyin = $self->removePinyinTones($3);
 #        print "@zi // $2 // $3\n";
-        push @{$self->{entry}}, [ $1, '', $2, $tonelessPinyin, $3 ];
+        push @{$self->{entry}}, [ $1, $2, $3, $tonelessPinyin, $4 ];
 #        push @{$self->{entry}}, [ $zi[0], $zi[1], $2, $tonelessPinyin, $3 ];
     }
     close $fh;
@@ -108,7 +108,7 @@ Christian Renz, E<lt>crenz@web42.comE<gt>
 
 =head1 LICENSE
 
-Copyright (C) 2002 Christian Renz. This program is free software; you can
+Copyright (C) 2002-2005 Christian Renz. This program is free software; you can
 redistribute it and/or modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO

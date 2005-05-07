@@ -1,6 +1,6 @@
 package Lingua::ZH::CEDICT;
 
-# Copyright (c) 2002 Christian Renz <crenz@web42.com>
+# Copyright (c) 2002-2005 Christian Renz <crenz@web42.com>
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
@@ -12,7 +12,7 @@ use strict;
 use warnings;
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 @ISA = ();
 
 sub new {
@@ -332,6 +332,8 @@ The dictionary is included as a Storable v2.4 file. Please see the bin/ director
 
 =head1 CONSTRUCTOR
 
+=head2 C<new>
+
 C<new(%hash)> will create a new dictionary object. It accepts the following
 keys:
 
@@ -386,6 +388,12 @@ Starts an exact search using the searchkey $key.
 
 Returns a reference to the next exactly matching entry.
 
+=item C<exportData()>
+
+Returns a list of hashes of all the data in the dictionary.
+
+=back
+
 =head2 MANIPULATING DATA AND FORMATTING
 
 =over 4
@@ -393,6 +401,10 @@ Returns a reference to the next exactly matching entry.
 =item C<addSimpChar>
 
 Call the C<simple> method of the C<HanConvert> module specified to add a conversion to simplified characters to each entry.
+
+=item C<addTradChar>
+
+Call the C<trad> method of the C<HanConvert> module specified to add a conversion to traditional characters to each entry.
 
 =item C<applyPinyinFormat($coderef)>
 
@@ -406,9 +418,17 @@ Formats the English translation for all entries. If no code ref is supplied, use
 
 Changes tone numbers to UTF-8-encoded tone marks.
 
+=item C<removePinyinTones>
+
+Removes the (numeric, not UTF-8) tone marks from a pinyin string.
+
 =item C<formatEnglish($text)>
 
 Changes '/' to a dot as delimiter and HTML-italicizes comments in brackets.
+
+=item C<englishToKeywords>
+
+Attempts to create a keyword list out of the English definition.
 
 =back
 
@@ -442,7 +462,7 @@ Christian Renz, E<lt>crenz@web42.comE<gt>
 
 =head1 LICENSE
 
-Copyright (C) 2002 Christian Renz. This program is free software; you can
+Copyright (C) 2002-2005 Christian Renz. This program is free software; you can
 redistribute it and/or modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO

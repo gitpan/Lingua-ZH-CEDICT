@@ -17,6 +17,7 @@ SKIP: {
     $dict->startFind('house');
     my $m = $dict->find();
     ok(ref($m), "Search for 'house'");
+    $m = $dict->find();
     ok(ref($m), "Further search for 'house'");
 }
 

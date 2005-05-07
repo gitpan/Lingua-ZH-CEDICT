@@ -1,6 +1,6 @@
 package Lingua::ZH::CEDICT::Storable;
 
-# Copyright (c) 2002 Christian Renz <crenz@web42.com>
+# Copyright (c) 2002-2005 Christian Renz <crenz@web42.com>
 # This module is free software; you can redistribute it and/or modify
 # it under the same terms as Perl itself.
 
@@ -9,7 +9,7 @@ use warnings;
 use vars qw($VERSION @ISA);
 use Storable;
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 @ISA = qw(Lingua::ZH::CEDICT);
 
 sub new {
@@ -80,6 +80,11 @@ data once it is in memory. They are included and described in
 L<Lingua::ZH::CEDICT|Lingua::ZH::CEDICT>, just in case you want to
 use them with one of the other interface modules as well.
 
+=head2 C<importData>
+
+Accepts a Lingua::ZH::CEDICT object as parameter. Stores the data from the
+dictionary object inside a Storable file.
+
 =head1 PREREQUISITES
 
 L<Lingua::ZH::Cedict|Lingua::ZH::Cedict>.
@@ -91,7 +96,7 @@ Christian Renz, E<lt>crenz@web42.comE<gt>
 
 =head1 LICENSE
 
-Copyright (C) 2002 Christian Renz. This program is free software; you can
+Copyright (C) 2002-2005 Christian Renz. This program is free software; you can
 redistribute it and/or modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO

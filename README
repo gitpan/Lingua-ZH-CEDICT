@@ -1,12 +1,11 @@
-Lingua/ZH/CEDICT version 0.03
+Lingua/ZH/CEDICT version 0.04
 =============================
 
-Lingua::ZH::CEDICT is an interface for CEDICT.b5, a Chinese-English
+Lingua::ZH::CEDICT is an interface for CEDICT, a Chinese-English
 dictionary file that may be freely used for non-commercial purposes.
 
-The dictionary is included as an UTF-8 text file (converted from
-CEDICT.b5 by piconv). Upon installation, the file will be read and
-converted into a Storable v2.4 file.
+The dictionary is included as an UTF-8 text file. Upon installation,
+the file will be read and converted into a Storable v2.4 file.
 
 INSTALLATION
 
@@ -19,8 +18,7 @@ To install this module type the following:
 
 DEPENDENCIES
 
-Requires perl 5.6, although I plan to bring down this requirement to
-about 5.5.3.
+Requires perl 5.6.
 
 Depending on your usage of the modules, might require one or several
 of the following modules:
@@ -32,7 +30,7 @@ Net::MySQL
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2002 Christian Renz <crenz@web42.com>
+Copyright (C) 2002-2005 Christian Renz <crenz@web42.com>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
